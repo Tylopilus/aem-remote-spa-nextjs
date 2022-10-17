@@ -31,3 +31,4 @@ yarn-error.log*
 
 # AEM editor
 /public/asset-manifest.json
+.vercel
