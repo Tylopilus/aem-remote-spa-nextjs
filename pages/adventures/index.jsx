@@ -54,11 +54,15 @@ export default function Adventures({ adventures, pages }) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
   const client = AdventureClient.fromEnv();
   const res = await client.getAllAdventures();
   const adventures = res?.data?.adventureList?.items;
   const pages = await getPages(NEXT_PUBLIC_AEM_ROOT);
+  context.res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=10, stale-while-revalidate=30'
+  );
   return {
     props: {
       adventures,
