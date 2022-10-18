@@ -79,10 +79,12 @@ export default function Layout({ children, pages }) {
                           href={item.href}
                           passHref
                           prefetch={false}>
-                          <a
+                          <div
                             aria-current={
                               isCurrentPage(item.href) ? 'page' : undefined
                             }
+                            aria-label={item.name}
+                            aria-as="link"
                             className={classNames(
                               isCurrentPage(item.href)
                                 ? 'bg-yellow-300 text-gray-700'
@@ -90,7 +92,7 @@ export default function Layout({ children, pages }) {
                               'px-3 py-2 rounded-md text-sm font-medium'
                             )}>
                             {item.name}
-                          </a>
+                          </div>
                         </Link>
                       ))}
                     </div>
