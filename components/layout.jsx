@@ -17,8 +17,6 @@ import { useRouter } from 'next/router';
 import { Disclosure } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 
-const { NEXT_PUBLIC_URL } = process.env;
-
 export const siteTitle = 'WKND';
 
 function classNames(...classes) {
@@ -36,10 +34,7 @@ export default function Layout({ children, pages }) {
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta name="description" content="AEM WKND built in Next.js" />
-        <meta
-          property="og:image"
-          content={`${NEXT_PUBLIC_URL}/wknd-logo-dk.svg`}
-        />
+        <meta property="og:image" content={`/wknd-logo-dk.svg`} />
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="cq:pagemodel_router" content="disabled" />
@@ -66,12 +61,12 @@ export default function Layout({ children, pages }) {
                     <a href="/">
                       <img
                         className="block w-auto h-8 lg:hidden"
-                        src={NEXT_PUBLIC_URL + '/wknd-logo-dk.svg'}
+                        src={'/wknd-logo-dk.svg'}
                         alt="WKND"
                       />
                       <img
                         className="hidden w-auto h-8 lg:block"
-                        src={NEXT_PUBLIC_URL + '/wknd-logo-dk.svg'}
+                        src={'/wknd-logo-dk.svg'}
                         alt="WKND"
                       />
                     </a>
