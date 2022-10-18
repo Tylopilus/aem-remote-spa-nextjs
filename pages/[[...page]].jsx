@@ -49,7 +49,7 @@ export async function getServerSideProps(context) {
 
   context.res.setHeader(
     'cache-control',
-    'public, max-age=1, stale-while-revalidate=60'
+    'public, max-age=60, stale-while-revalidate=120'
   );
   context.res.setHeader('x-myhead', 'bla');
 
