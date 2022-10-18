@@ -48,9 +48,10 @@ export async function getServerSideProps(context) {
   }`;
 
   context.res.setHeader(
-    'Cache-Control',
-    'public, s-maxage=10, stale-while-revalidate=30'
+    'cache-control',
+    'public, max-age=1, stale-while-revalidate=60'
   );
+  context.res.setHeader('x-myhead', 'bla');
 
   const pages = await getPages(NEXT_PUBLIC_AEM_ROOT);
   const model = await fetchModel({
