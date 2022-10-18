@@ -74,26 +74,23 @@ export default function Layout({ children, pages }) {
                   <div className="hidden sm:block sm:ml-6">
                     <div className="flex space-x-4">
                       {pages.map((item) => (
-                        <Link
-                          key={item.name}
-                          href={item.href}
-                          passHref
-                          prefetch={false}>
-                          <div
-                            aria-current={
-                              isCurrentPage(item.href) ? 'page' : undefined
-                            }
-                            aria-label={item.name}
-                            aria-as="link"
-                            className={classNames(
-                              isCurrentPage(item.href)
-                                ? 'bg-yellow-300 text-gray-700'
-                                : 'text-gray-800 hover:bg-yellow-200 hover:text-gray-700',
-                              'px-3 py-2 rounded-md text-sm font-medium'
-                            )}>
-                            {item.name}
-                          </div>
-                        </Link>
+                        <div key={item.name}>
+                          <Link href={item.href} passHref>
+                            <a
+                              aria-current={
+                                isCurrentPage(item.href) ? 'page' : undefined
+                              }
+                              aria-label={item.name}
+                              className={classNames(
+                                isCurrentPage(item.href)
+                                  ? 'bg-yellow-300 text-gray-700'
+                                  : 'text-gray-800 hover:bg-yellow-200 hover:text-gray-700',
+                                'px-3 py-2 rounded-md text-sm font-medium'
+                              )}>
+                              {item.name}
+                            </a>
+                          </Link>
+                        </div>
                       ))}
                     </div>
                   </div>
