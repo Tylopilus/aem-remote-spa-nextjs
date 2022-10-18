@@ -74,7 +74,7 @@ export default function Layout({ children, pages }) {
                   <div className="hidden sm:block sm:ml-6">
                     <div className="flex space-x-4">
                       {pages.map((item) => (
-                        <Link key={item.name} href={item.href}>
+                        <Link key={item.name} href={item.href} passHref>
                           <a
                             aria-current={
                               isCurrentPage(item.href) ? 'page' : undefined
