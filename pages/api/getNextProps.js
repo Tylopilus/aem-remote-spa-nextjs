@@ -16,10 +16,12 @@ const { DOMParser } = require('@xmldom/xmldom');
 export default async function handler(req, res) {
   let { path } = req.query;
 
-  console.log(process.env.NEXT_PUBLIC_VERCEL_URL);
-  const pageRes = await fetch(
-    process.env.NEXT_PUBLIC_VERCEL_URL + (path || '')
-  );
+  console.log(process.env.NODE_ENV);
+  const url =
+    process.env.NODE_ENV === 'development'
+      ? 'http://localhost:3000'
+      : `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
+  const pageRes = await fetch(url + (path || ''));
   const pageText = await pageRes.text();
   const parser = new DOMParser();
   const doc = parser.parseFromString(pageText, 'text/html');
