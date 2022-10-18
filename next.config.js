@@ -15,54 +15,73 @@ const path = require('path');
 const WebpackAssetsManifest = require('webpack-assets-manifest');
 
 module.exports = {
-    reactStrictMode: true,
-    async headers() {
-        return [
-            {
-                source: '/api/getNextProps',
-                headers: [ {
-                    key: 'Access-Control-Allow-Origin',
-                    value: '*'
-                } ]
-            },
-            {
-                source: '/asset-manifest.json',
-                headers: [ {
-                    key: 'Access-Control-Allow-Origin',
-                    value: '*'
-                } ]
-            },
-            {
-                source: '/_next/:path*',
-                headers: [ {
-                    key: 'Access-Control-Allow-Origin',
-                    value: '*'
-                } ]
+  reactStrictMode: true,
+  async headers() {
+    return [
+      {
+        source: '/api/getNextProps',
+        headers: [
+          {
+            key: 'Access-Control-Allow-Origin',
+            value: '*',
+          },
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=60, stale-while-revalidate=120',
+          },
+        ],
+      },
+      {
+        source: '/asset-manifest.json',
+        headers: [
+          {
+            key: 'Access-Control-Allow-Origin',
+            value: '*',
+          },
+        ],
+      },
+      {
+        source: '/_next/:path*',
+        headers: [
+          {
+            key: 'Access-Control-Allow-Origin',
+            value: '*',
+          },
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=60, stale-while-revalidate=120',
+          },
+        ],
+      },
+    ];
+  },
+  webpack(config) {
+    config.plugins.push(
+      new WebpackAssetsManifest({
+        output: '../public/asset-manifest.json',
+        transform: (assets) => {
+          const entrypoints = [];
+          for (let file in assets) {
+            if (file.includes('server/')) {
+              delete assets[file];
+            } else if (
+              assets[file].endsWith('.js') ||
+              assets[file].endsWith('.css')
+            ) {
+              entrypoints.push(assets[file]);
             }
-        ]
-    },
-    webpack(config) {
-        config.plugins.push(new WebpackAssetsManifest({
-            output: '../public/asset-manifest.json',
-            transform: assets => {
-                const entrypoints = [];
-                for (let file in assets) {
-                    if (file.includes('server/')) {
-                        delete assets[file];
-                    } else if (assets[file].endsWith('.js') || assets[file].endsWith('.css')) {
-                        entrypoints.push(assets[file]);
-                    }
-                }
-                return {
-                    files: assets,
-                    entrypoints: entrypoints
-                };
-            }
-        }));
+          }
+          return {
+            files: assets,
+            entrypoints: entrypoints,
+          };
+        },
+      })
+    );
 
-        return config;
-    },
-    sassOptions: {
-        includePaths: [path.join(__dirname, 'styles')],
-    },
+    return config;
+  },
+  sassOptions: {
+    includePaths: [path.join(__dirname, 'styles')],
+  },
 };
