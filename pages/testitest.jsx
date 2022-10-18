@@ -30,6 +30,11 @@ export async function getServerSideProps(context) {
     context.query.page?.join('/') || 'home'
   }`;
 
+  context.res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=10, stale-while-revalidate=30'
+  );
+
   const pages = await getPages(NEXT_PUBLIC_AEM_ROOT);
   const model = await fetchModel({
     pagePath,
