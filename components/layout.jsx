@@ -124,7 +124,7 @@ export default function Layout({ children, pages }) {
       </Disclosure>
       <main>{children}</main>
       <footer className="text-center bg-gray-200 lg:text-left">
-        <div className="p-4 text-center text-gray-700">
+        <div className="p-4 text-center text-yellow-300">
           © 2022 Copyright:
           <a className="text-gray-800" href="https://wknd.site/">
             {' '}
